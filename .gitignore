@@ -14,7 +14,6 @@ db.sqlite3
 
 # Collected static output
 /static/
-theme
 
 # Node Dependencies
 node_modules/
