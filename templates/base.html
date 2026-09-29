@@ -1,0 +1,37 @@
+<!-- templates/books/search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Google Books Search</title>
+</head>
+<body>
+    <h1>Search for Books</h1>
+    
+    <form method="GET" action="">
+        <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Enter title, author, or ISBN...">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    {% if books %}
+        <h2>Results for "{{ query }}":</h2>
+        <div style="display: grid; gap: 20px;">
+            {% for book in books %}
+                <div style="border: 1px solid #ccc; padding: 15px; display: flex; gap: 15px;">
+                    {% if book.thumbnail %}
+                        <img src="{{ book.thumbnail }}" alt="{{ book.title }} Cover" style="max-width: 120px;">
+                    {% endif %}
+                    <div>
+                        <h3><a href="{{ book.info_link }}" target="_blank">{{ book.title }}</a></h3>
+                        <p><strong>Author(s):</strong> {{ book.authors|join:", " }}</p>
+                        <p>{{ book.description|truncatewords:40 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% elif query %}
+        <p>No books found for "{{ query }}".</p>
+    {% endif %}
+</body>
+</html>
